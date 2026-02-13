@@ -1,0 +1,13 @@
+{
+    "name": "vitamin-reminder",
+    "version": "1.0.0",
+    "description": "A Vercel cron job to remind me to take vitamins",
+    "type": "module",
+    "main": "api/remind.js",
+    "scripts": {
+        "test": "node test-notification.js"
+    },
+    "dependencies": {
+        "node-fetch": "^3.3.2"
+    }
+}
