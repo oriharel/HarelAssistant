@@ -1,6 +1,7 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
 
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
@@ -30,7 +31,8 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ success: true, data });
     } catch (error) {
-        console.error('Fetch error:', error);
-        return res.status(500).json({ error: 'Internal server error', details: error.message });
+        const err = error as Error;
+        console.error('Fetch error:', err);
+        return res.status(500).json({ error: 'Internal server error', details: err.message });
     }
 }

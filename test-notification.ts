@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 // Mock environment variables if running locally without them set in shell
-// You can also run: TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... node test-notification.js
+// You can also run: TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... npx tsx test-notification.ts
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
