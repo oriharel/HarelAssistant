@@ -12,7 +12,7 @@ if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
 }
 
 async function sendReminder() {
-    const message = "🧪 This is a test: Time to take your vitamins! 🧪";
+    const message = "🧪 This is a test: HarelAssistant reminder! 🧪";
     console.log(`Sending message to chat ID: ${TELEGRAM_CHAT_ID}...`);
 
     try {

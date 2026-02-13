@@ -1,7 +1,7 @@
 {
-    "name": "vitamin-reminder",
+    "name": "harel-assistant",
     "version": "1.0.0",
-    "description": "A Vercel cron job to remind me to take vitamins",
+    "description": "Harel family personal assistant",
     "type": "module",
     "main": "api/remind.js",
     "scripts": {

@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(500).json({ error: 'Missing environment variables' });
     }
 
-    const message = "💊 Time to take your vitamins! 💊";
+    const message = "👋 Good morning! Time for your morning routine! 👋";
 
     try {
         const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
