@@ -1,0 +1,15 @@
+name: Solo Walk Reminder
+
+on:
+  schedule:
+    # 13:30 UTC = 15:30 Israel Standard Time (UTC+2)
+    # Note: Will be 16:30 during Summer Time (UTC+3)
+    - cron: '30 13 * * *'
+  workflow_dispatch: # Allow manual run from GitHub UI
+
+jobs:
+  trigger_reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Endpoint
+        run: curl -X POST "https://vitamin-reminder.vercel.app/api/remind?message=🐕 Time to walk Solo! 🐕"

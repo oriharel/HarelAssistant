@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Vercel Endpoint
-        run: curl -X POST https://vitamin-reminder.vercel.app/api/remind
+        run: curl -X POST "https://vitamin-reminder.vercel.app/api/remind?message=👋 Good morning! Time for your morning routine! 👋"
