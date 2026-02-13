@@ -8,6 +8,7 @@
         "test": "tsx test-notification.ts"
     },
     "dependencies": {
+        "@vercel/sdk": "^1.19.1",
         "node-fetch": "^3.3.2"
     },
     "devDependencies": {
