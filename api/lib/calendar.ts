@@ -16,12 +16,13 @@ export function getCalendarClient() {
 }
 
 export async function getTomorrowEvents() {
-    const calendarId = process.env.GOOGLE_CALENDAR_ID;
-    if (!calendarId) {
+    const calendarIds = process.env.GOOGLE_CALENDAR_ID;
+    if (!calendarIds) {
         throw new Error('Missing GOOGLE_CALENDAR_ID environment variable');
     }
 
     const calendar = getCalendarClient();
+    const ids = calendarIds.split(',').map((id) => id.trim()).filter(Boolean);
 
     // Calculate tomorrow's date range in Israel time (Asia/Jerusalem)
     const now = new Date();
@@ -32,16 +33,40 @@ export async function getTomorrowEvents() {
     const timeMin = new Date(`${israelDate}T00:00:00+02:00`).toISOString();
     const timeMax = new Date(`${israelDate}T23:59:59+02:00`).toISOString();
 
-    const response = await calendar.events.list({
-        calendarId,
-        timeMin,
-        timeMax,
-        singleEvents: true,
-        orderBy: 'startTime',
+    // Fetch events from all calendars in parallel
+    const responses = await Promise.all(
+        ids.map((calendarId) =>
+            calendar.events.list({
+                calendarId,
+                timeMin,
+                timeMax,
+                singleEvents: true,
+                orderBy: 'startTime',
+            })
+        )
+    );
+
+    // Merge and deduplicate events by ID, then sort by start time
+    const seenIds = new Set<string>();
+    const allEvents: any[] = [];
+    for (const response of responses) {
+        for (const event of response.data.items || []) {
+            const eventId = event.id || event.summary + event.start?.dateTime;
+            if (!seenIds.has(eventId)) {
+                seenIds.add(eventId);
+                allEvents.push(event);
+            }
+        }
+    }
+
+    allEvents.sort((a, b) => {
+        const aTime = a.start?.dateTime || a.start?.date || '';
+        const bTime = b.start?.dateTime || b.start?.date || '';
+        return aTime.localeCompare(bTime);
     });
 
     return {
-        events: response.data.items || [],
+        events: allEvents,
         date: israelDate,
     };
 }
