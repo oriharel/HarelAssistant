@@ -2,9 +2,9 @@ name: Solo Walk Reminder
 
 on:
   schedule:
-    # 13:30 UTC = 15:30 Israel Standard Time (UTC+2)
-    # Note: Will be 16:30 during Summer Time (UTC+3)
-    - cron: '30 13 * * *'
+    # 14:00 UTC = 16:00 Israel Standard Time (UTC+2)
+    # Note: Will be 17:00 during Israel Summer Time (UTC+3)
+    - cron: '0 14 * * *'
   workflow_dispatch: # Allow manual run from GitHub UI
 
 jobs:
