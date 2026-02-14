@@ -36,4 +36,4 @@ Required in Vercel and locally (in `.env.local`):
 
 ## Known Issues
 
-- GitHub Actions workflows still reference the old `vitamin-reminder.vercel.app` domain in their URLs.
+- The Vercel production domain is still `vitamin-reminder.vercel.app` (legacy name). This is correct and working.
