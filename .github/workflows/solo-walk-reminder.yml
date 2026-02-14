@@ -12,4 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Vercel Endpoint
-        run: curl -X POST "https://vitamin-reminder.vercel.app/api/remind?message=🐕 Time to walk Solo! 🐕"
+        run: |
+          MESSAGE=$(python3 -c "import urllib.parse; print(urllib.parse.quote('🐕 Time to walk Solo! 🐕'))")
+          curl -X POST "https://vitamin-reminder.vercel.app/api/remind?message=${MESSAGE}"
