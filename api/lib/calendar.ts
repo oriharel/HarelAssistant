@@ -33,8 +33,8 @@ export async function getTomorrowEvents() {
     const timeMin = new Date(`${israelDate}T00:00:00+02:00`).toISOString();
     const timeMax = new Date(`${israelDate}T23:59:59+02:00`).toISOString();
 
-    // Fetch events from all calendars in parallel
-    const responses = await Promise.all(
+    // Fetch events from all calendars in parallel, tolerating individual failures
+    const results = await Promise.allSettled(
         ids.map((calendarId) =>
             calendar.events.list({
                 calendarId,
@@ -49,8 +49,13 @@ export async function getTomorrowEvents() {
     // Merge and deduplicate events by ID, then sort by start time
     const seenIds = new Set<string>();
     const allEvents: any[] = [];
-    for (const response of responses) {
-        for (const event of response.data.items || []) {
+    for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+        if (result.status === 'rejected') {
+            console.error(`Failed to fetch calendar ${ids[i]}:`, result.reason?.message || result.reason);
+            continue;
+        }
+        for (const event of result.value.data.items || []) {
             const eventId = event.id || event.summary + event.start?.dateTime;
             if (!seenIds.has(eventId)) {
                 seenIds.add(eventId);
