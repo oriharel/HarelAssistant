@@ -1,0 +1,39 @@
+name: Madlan Listing Bump
+
+on:
+  schedule:
+    # 04:00 UTC = 07:00 Israel Standard Time (UTC+3)
+    # Wednesday morning — weekly refresh per strategy
+    - cron: '0 4 * * 3'
+  workflow_dispatch: # Allow manual run from GitHub UI
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Madlan bump script
+        env:
+          MADLAN_EMAIL: ${{ secrets.MADLAN_EMAIL }}
+          MADLAN_PASSWORD: ${{ secrets.MADLAN_PASSWORD }}
+        run: npx tsx scripts/madlan-bump.ts
+
+      - name: Upload debug screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: madlan-screenshots
+          path: madlan-*.png
+          retention-days: 7
