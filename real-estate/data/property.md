@@ -13,6 +13,7 @@
 - **Yad2**: https://www.yad2.co.il/realestate/item/4l91jdn5
 - **Facebook**: https://www.facebook.com/share/p/1by9UZMTTQ/
 - **Facebook (group 2)**: https://www.facebook.com/share/p/1Afxyn3p4M/
+- **Facebook (group 3)**: https://www.facebook.com/share/p/1Dbih8PxQJ/
 - **Madlan**: https://www.madlan.co.il/listings/LlJXz8dq1w2
 - **Homeless**: https://www.homeless.co.il/sale/viewad,257159.aspx
 - **OnMap**: https://onmap.co.il/a/gardenapartment-for-sale-kefar-sava-kefar-sava-sj2fl1mpbe
