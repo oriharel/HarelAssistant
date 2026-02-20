@@ -59,6 +59,18 @@ Required in Vercel and locally (in `.env.local`):
 - Alpine.js (CDN) for CRM dashboard (zero build step)
 - GitHub Actions for CI/CD and additional cron triggers
 
+## Real Estate Agents
+
+The `real-estate/agents/` directory contains markdown persona prompts for assisting with the property sale. Run them using the Task tool (subagent_type=general-purpose), passing the agent's prompt file as context. Agents read property data from `real-estate/data/property.md` and listing templates from `real-estate/data/listing-templates.md`.
+
+Available agents:
+- **orchestrator.md** — Master coordinator. Does daily funnel review, identifies stale leads, delegates to other agents. Run this first for a status briefing.
+- **content-writer.md** — Hebrew listing copywriter. Generates/improves Yad2, Facebook, Madlan listings, bump text variants, photo captions.
+- **market-researcher.md** — Platform strategy, bump timing (הקפצה), Facebook group recommendations, competitive pricing analysis.
+- **analytics-advisor.md** — Funnel conversion analysis, pricing assessment, negotiation strategy. Most useful once CRM has data.
+
+**How to invoke**: When the user asks to run an agent or do a task that matches an agent's role, read the agent's .md file and the property data, then use the Task tool with the agent's persona and instructions. Agents can use web search for market research and read local files for property context.
+
 ## Git Workflow
 
 - **Never commit directly to `main`.** Always create a feature branch and open a PR.
